@@ -28,6 +28,11 @@ import 'package:mapbox_maps_example/vector_tile_source_example.dart';
 import 'package:mapbox_maps_example/viewport_example.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 
+// Navigation examples (Sprint 1 & 2)
+import 'package:mapbox_maps_example/basic_navigation_example.dart';
+import 'package:mapbox_maps_example/styled_navigation_example.dart';
+import 'package:mapbox_maps_example/lane_guidance_example.dart';
+
 import 'full_map_example.dart';
 import 'location_example.dart';
 import 'example.dart';
@@ -41,6 +46,12 @@ final List<Example> _allPages = <Example>[
   SimpleMapExample(),
   ViewportExample(),
   SnapshotterExample(),
+
+  // Navigation Examples
+  BasicNavigationExample(),
+  StyledNavigationExample(),
+  LaneGuidanceExample(),
+
   TrafficRouteLineExample(),
   OfflineMapExample(),
   ModelLayerExample(),

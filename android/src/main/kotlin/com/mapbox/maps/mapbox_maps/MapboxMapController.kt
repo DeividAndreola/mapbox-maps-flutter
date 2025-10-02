@@ -29,8 +29,12 @@ import com.mapbox.maps.mapbox_maps.pigeons._LocationComponentSettingsInterface
 import com.mapbox.maps.mapbox_maps.pigeons._MapInterface
 import com.mapbox.maps.mapbox_maps.pigeons._PerformanceStatisticsApi
 import com.mapbox.maps.mapbox_maps.pigeons._ViewportMessenger
+import com.mapbox.maps.mapbox_maps.pigeons.NavigationEventListener
+import com.mapbox.maps.mapbox_maps.pigeons.NavigationInterface
 import com.mapbox.maps.plugin.animation.camera
+import com.mapbox.maps.plugin.locationcomponent.location
 import com.mapbox.maps.plugin.viewport.viewport
+import com.mapbox.navigation.ui.maps.location.NavigationLocationProvider
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodCall
@@ -56,7 +60,6 @@ class MapboxMapController(
   private val methodChannel: MethodChannel
   private val messenger: BinaryMessenger
   private val channelSuffix: String
-
   private val styleController: StyleController
   private val cameraController: CameraController
   private val projectionController: MapProjectionController
@@ -72,6 +75,7 @@ class MapboxMapController(
   private val compassController: CompassController
   private val viewportController: ViewportController
   private val performanceStatisticsController: PerformanceStatisticsController
+  private val navigationController: NavigationController
 
   private val eventHandler: MapboxEventHandler
 
@@ -138,8 +142,13 @@ class MapboxMapController(
 
     val mapView = MapView(context, mapInitOptions)
     val mapboxMap = mapView.mapboxMap
+
     this.mapView = mapView
     this.mapboxMap = mapboxMap
+
+    // Create navigation event listener for broadcasting events to Flutter
+    val navigationEventListener = NavigationEventListener(messenger, this.channelSuffix)
+    navigationController = NavigationController(context, mapView, lifecycleProvider.getLifecycle()!!, navigationEventListener)
     eventHandler = MapboxEventHandler(mapboxMap.styleManager, messenger, eventTypes, this.channelSuffix)
     styleController = StyleController(context, mapboxMap)
     cameraController = CameraController(mapboxMap, context)
@@ -158,6 +167,7 @@ class MapboxMapController(
     performanceStatisticsController = PerformanceStatisticsController(mapboxMap, this.messenger, this.channelSuffix)
     changeUserAgent(pluginVersion)
 
+    NavigationInterface.setUp(messenger, navigationController, this.channelSuffix)
     StyleManager.setUp(messenger, styleController, this.channelSuffix)
     _CameraManager.setUp(messenger, cameraController, this.channelSuffix)
     Projection.setUp(messenger, projectionController, this.channelSuffix)
@@ -195,8 +205,12 @@ class MapboxMapController(
 
   override fun onFlutterViewDetached() {
     super.onFlutterViewDetached()
+
+    navigationController.dispose()
+
     lifecycleHelper?.dispose()
     lifecycleHelper = null
+
     mapView?.setViewTreeLifecycleOwner(null)
   }
 
@@ -204,6 +218,8 @@ class MapboxMapController(
     if (mapView == null) {
       return
     }
+
+    navigationController.dispose()
     lifecycleHelper?.dispose()
     lifecycleHelper = null
     mapView?.setViewTreeLifecycleOwner(null)
@@ -211,6 +227,7 @@ class MapboxMapController(
     mapboxMap = null
     methodChannel.setMethodCallHandler(null)
 
+    NavigationInterface.setUp(messenger, null, channelSuffix)
     StyleManager.setUp(messenger, null, channelSuffix)
     _CameraManager.setUp(messenger, null, channelSuffix)
     Projection.setUp(messenger, null, channelSuffix)

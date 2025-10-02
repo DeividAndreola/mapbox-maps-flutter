@@ -2,8 +2,7 @@ part of mapbox_maps_flutter;
 
 /// Geometry for querying rendered features.
 class RenderedQueryGeometry {
-  @Deprecated(
-      'Use RenderedQueryGeometry.fromList()/fromScreenBox()/fromScreenCoordinated() instead')
+  @Deprecated('Use RenderedQueryGeometry.fromList()/fromScreenBox()/fromScreenCoordinated() instead')
   RenderedQueryGeometry({
     required this.value,
     required this.type,
@@ -36,68 +35,54 @@ class MapWidgetDebugOptions {
 
   /// Edges of tile boundaries are shown as thick, red lines to help diagnose
   /// tile clipping issues.
-  static const MapWidgetDebugOptions tileBorders =
-      MapWidgetDebugOptions._(_MapWidgetDebugOptions.tileBorders);
+  static const MapWidgetDebugOptions tileBorders = MapWidgetDebugOptions._(_MapWidgetDebugOptions.tileBorders);
 
   /// Each tile shows its tile coordinate (x/y/z) in the upper-left corner.
-  static const MapWidgetDebugOptions parseStatus =
-      MapWidgetDebugOptions._(_MapWidgetDebugOptions.parseStatus);
+  static const MapWidgetDebugOptions parseStatus = MapWidgetDebugOptions._(_MapWidgetDebugOptions.parseStatus);
 
   /// Each tile shows a timestamps with modified and expires dates or n/a if
   /// timestamp is not available.
-  static const MapWidgetDebugOptions timestamps =
-      MapWidgetDebugOptions._(_MapWidgetDebugOptions.timestamps);
+  static const MapWidgetDebugOptions timestamps = MapWidgetDebugOptions._(_MapWidgetDebugOptions.timestamps);
 
   /// Edges of glyphs and symbols are shown as faint, green lines to help
   /// diagnose collision and label placement issues.
-  static const MapWidgetDebugOptions collision =
-      MapWidgetDebugOptions._(_MapWidgetDebugOptions.collision);
+  static const MapWidgetDebugOptions collision = MapWidgetDebugOptions._(_MapWidgetDebugOptions.collision);
 
   /// Each drawing operation is replaced by a translucent fill. Overlapping
   /// drawing operations appear more prominent to help diagnose overdrawing.
-  static const MapWidgetDebugOptions overdraw =
-      MapWidgetDebugOptions._(_MapWidgetDebugOptions.overdraw);
+  static const MapWidgetDebugOptions overdraw = MapWidgetDebugOptions._(_MapWidgetDebugOptions.overdraw);
 
   /// The stencil buffer is shown instead of the color buffer.
-  static const MapWidgetDebugOptions stencilClip =
-      MapWidgetDebugOptions._(_MapWidgetDebugOptions.stencilClip);
+  static const MapWidgetDebugOptions stencilClip = MapWidgetDebugOptions._(_MapWidgetDebugOptions.stencilClip);
 
   /// The depth buffer is shown instead of the color buffer.
-  static const MapWidgetDebugOptions depthBuffer =
-      MapWidgetDebugOptions._(_MapWidgetDebugOptions.depthBuffer);
+  static const MapWidgetDebugOptions depthBuffer = MapWidgetDebugOptions._(_MapWidgetDebugOptions.depthBuffer);
 
   /// Show 3D model bounding boxes.
-  static const MapWidgetDebugOptions modelBounds =
-      MapWidgetDebugOptions._(_MapWidgetDebugOptions.modelBounds);
+  static const MapWidgetDebugOptions modelBounds = MapWidgetDebugOptions._(_MapWidgetDebugOptions.modelBounds);
 
   /// Show a wireframe for terrain.
   /// Supported on Android only.
-  static const MapWidgetDebugOptions terrainWireframe =
-      MapWidgetDebugOptions._(_MapWidgetDebugOptions.terrainWireframe);
+  static const MapWidgetDebugOptions terrainWireframe = MapWidgetDebugOptions._(_MapWidgetDebugOptions.terrainWireframe);
 
   /// Show a wireframe for 2D layers.
   /// Supported on Android only.
-  static const MapWidgetDebugOptions layers2DWireframe =
-      MapWidgetDebugOptions._(_MapWidgetDebugOptions.layers2DWireframe);
+  static const MapWidgetDebugOptions layers2DWireframe = MapWidgetDebugOptions._(_MapWidgetDebugOptions.layers2DWireframe);
 
   /// Show a wireframe for 3D layers.
   /// Supported on Android only.
-  static const MapWidgetDebugOptions layers3DWireframe =
-      MapWidgetDebugOptions._(_MapWidgetDebugOptions.layers3DWireframe);
+  static const MapWidgetDebugOptions layers3DWireframe = MapWidgetDebugOptions._(_MapWidgetDebugOptions.layers3DWireframe);
 
   /// Each tile shows its local lighting conditions in the upper-left corner.
   /// (If `lights` properties are used, otherwise they show zero.)
-  static const MapWidgetDebugOptions light =
-      MapWidgetDebugOptions._(_MapWidgetDebugOptions.light);
+  static const MapWidgetDebugOptions light = MapWidgetDebugOptions._(_MapWidgetDebugOptions.light);
 
   /// Show a debug overlay with information about the CameraState
   /// including lat, long, zoom, pitch, & bearing.
-  static const MapWidgetDebugOptions camera =
-      MapWidgetDebugOptions._(_MapWidgetDebugOptions.camera);
+  static const MapWidgetDebugOptions camera = MapWidgetDebugOptions._(_MapWidgetDebugOptions.camera);
 
   /// Draws camera padding frame.
-  static const MapWidgetDebugOptions padding =
-      MapWidgetDebugOptions._(_MapWidgetDebugOptions.padding);
+  static const MapWidgetDebugOptions padding = MapWidgetDebugOptions._(_MapWidgetDebugOptions.padding);
 }
 
 extension on _MapWidgetDebugOptions {
@@ -151,70 +136,55 @@ class MapboxMap extends ChangeNotifier {
   final _MapboxMapsPlatform _mapboxMapsPlatform;
 
   /// The currently loaded Style]object.
-  late final StyleManager style = StyleManager(
-      binaryMessenger: _mapboxMapsPlatform.binaryMessenger,
-      messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
+  late final StyleManager style = StyleManager(binaryMessenger: _mapboxMapsPlatform.binaryMessenger, messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
 
   /// The interface to set the location puck.
   late final LocationSettings location = LocationSettings._(
-      _LocationComponentSettingsInterface(
-          binaryMessenger: _mapboxMapsPlatform.binaryMessenger,
-          messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString()));
+      _LocationComponentSettingsInterface(binaryMessenger: _mapboxMapsPlatform.binaryMessenger, messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString()));
 
-  late final _CameraManager _cameraManager = _CameraManager(
-      binaryMessenger: _mapboxMapsPlatform.binaryMessenger,
-      messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
-  late final _MapInterface _mapInterface = _MapInterface(
-      binaryMessenger: _mapboxMapsPlatform.binaryMessenger,
-      messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
-  late final _AnimationManager _animationManager = _AnimationManager(
-      binaryMessenger: _mapboxMapsPlatform.binaryMessenger,
-      messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
-  late final _ViewportMessenger _viewportMessenger = _ViewportMessenger(
-      binaryMessenger: _mapboxMapsPlatform.binaryMessenger,
-      messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
+  late final _CameraManager _cameraManager =
+      _CameraManager(binaryMessenger: _mapboxMapsPlatform.binaryMessenger, messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
+  late final _MapInterface _mapInterface = _MapInterface(binaryMessenger: _mapboxMapsPlatform.binaryMessenger, messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
+  late final _AnimationManager _animationManager =
+      _AnimationManager(binaryMessenger: _mapboxMapsPlatform.binaryMessenger, messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
+  late final _ViewportMessenger _viewportMessenger =
+      _ViewportMessenger(binaryMessenger: _mapboxMapsPlatform.binaryMessenger, messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
   late final _PerformanceStatisticsApi _performanceStatistics =
-      _PerformanceStatisticsApi(
-          binaryMessenger: _mapboxMapsPlatform.binaryMessenger,
-          messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
+      _PerformanceStatisticsApi(binaryMessenger: _mapboxMapsPlatform.binaryMessenger, messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
 
   /// The interface to create and set annotations.
   late final AnnotationManager annotations;
 
   // Keep Projection visible for users as iOS doesn't include it in MapboxMaps.
   /// The map projection of the style.
-  late final Projection projection = Projection(
-      binaryMessenger: _mapboxMapsPlatform.binaryMessenger,
-      messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
+  late final Projection projection = Projection(binaryMessenger: _mapboxMapsPlatform.binaryMessenger, messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
 
   /// The interface to access the gesture settings.
-  late final GesturesSettingsInterface gestures = GesturesSettingsInterface(
-      binaryMessenger: _mapboxMapsPlatform.binaryMessenger,
-      messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
+  late final GesturesSettingsInterface gestures =
+      GesturesSettingsInterface(binaryMessenger: _mapboxMapsPlatform.binaryMessenger, messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
 
   /// The interface to set the logo settings.
-  late final LogoSettingsInterface logo = LogoSettingsInterface(
-      binaryMessenger: _mapboxMapsPlatform.binaryMessenger,
-      messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
+  late final LogoSettingsInterface logo =
+      LogoSettingsInterface(binaryMessenger: _mapboxMapsPlatform.binaryMessenger, messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
 
   /// The interface to access the compass settings.
-  late final CompassSettingsInterface compass = CompassSettingsInterface(
-      binaryMessenger: _mapboxMapsPlatform.binaryMessenger,
-      messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
+  late final CompassSettingsInterface compass =
+      CompassSettingsInterface(binaryMessenger: _mapboxMapsPlatform.binaryMessenger, messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
 
   /// The interface to access the compass settings.
-  late final ScaleBarSettingsInterface scaleBar = ScaleBarSettingsInterface(
-      binaryMessenger: _mapboxMapsPlatform.binaryMessenger,
-      messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
+  late final ScaleBarSettingsInterface scaleBar =
+      ScaleBarSettingsInterface(binaryMessenger: _mapboxMapsPlatform.binaryMessenger, messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
 
   /// The interface to access the attribution settings.
   late final AttributionSettingsInterface attribution =
-      AttributionSettingsInterface(
-          binaryMessenger: _mapboxMapsPlatform.binaryMessenger,
-          messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
-  late final MapboxHttpService httpService = MapboxHttpService(
-      binaryMessenger: _mapboxMapsPlatform.binaryMessenger,
-      channelSuffix: _mapboxMapsPlatform.channelSuffix);
+      AttributionSettingsInterface(binaryMessenger: _mapboxMapsPlatform.binaryMessenger, messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
+
+  late final MapboxHttpService httpService = MapboxHttpService(binaryMessenger: _mapboxMapsPlatform.binaryMessenger, channelSuffix: _mapboxMapsPlatform.channelSuffix);
+
+  /// The interface to access the navigation system.
+  late final NavigationInterface navigation =
+      NavigationInterface(binaryMessenger: _mapboxMapsPlatform.binaryMessenger, messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
+
   OnMapTapListener? onMapTapListener;
   OnMapLongTapListener? onMapLongTapListener;
   OnMapScrollListener? onMapScrollListener;
@@ -223,12 +193,8 @@ class MapboxMap extends ChangeNotifier {
   @override
   void dispose() {
     _mapboxMapsPlatform.dispose();
-    GestureListener.setUp(null,
-        binaryMessenger: _mapboxMapsPlatform.binaryMessenger,
-        messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
-    PerformanceStatisticsListener.setUp(null,
-        binaryMessenger: _mapboxMapsPlatform.binaryMessenger,
-        messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
+    GestureListener.setUp(null, binaryMessenger: _mapboxMapsPlatform.binaryMessenger, messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
+    PerformanceStatisticsListener.setUp(null, binaryMessenger: _mapboxMapsPlatform.binaryMessenger, messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
     super.dispose();
   }
 
@@ -249,21 +215,13 @@ class MapboxMap extends ChangeNotifier {
       );
 
   /// Convenience method that returns the `camera options` object for given parameters.
-  Future<CameraOptions> cameraForCoordinateBounds(
-          CoordinateBounds bounds,
-          MbxEdgeInsets padding,
-          double? bearing,
-          double? pitch,
-          double? maxZoom,
-          ScreenCoordinate? offset) =>
-      _cameraManager.cameraForCoordinateBounds(
-          bounds, padding, bearing, pitch, maxZoom, offset);
+  Future<CameraOptions> cameraForCoordinateBounds(CoordinateBounds bounds, MbxEdgeInsets padding, double? bearing, double? pitch, double? maxZoom, ScreenCoordinate? offset) =>
+      _cameraManager.cameraForCoordinateBounds(bounds, padding, bearing, pitch, maxZoom, offset);
 
   /// Convenience method that returns the `camera options` object for given parameters.
 
   @Deprecated('Use [cameraForCoordinatesPadding] instead')
-  Future<CameraOptions> cameraForCoordinates(List<Point> coordinates,
-          MbxEdgeInsets padding, double? bearing, double? pitch) =>
+  Future<CameraOptions> cameraForCoordinates(List<Point> coordinates, MbxEdgeInsets padding, double? bearing, double? pitch) =>
       _cameraManager.cameraForCoordinates(coordinates, padding, bearing, pitch);
 
   /// Convenience method that adjusts the provided `camera options` object for given parameters.
@@ -273,79 +231,63 @@ class MapboxMap extends ChangeNotifier {
   /// Returns the provided `camera` options object unchanged upon an error.
   /// Note that this method may fail if the principal point of the projection is not inside the `box` or
   /// if there is no sufficient screen space, defined by principal point and the `box`, to fit the geometry.
-  Future<CameraOptions> cameraForCoordinatesCameraOptions(
-          List<Point> coordinates, CameraOptions camera, ScreenBox box) =>
-      _cameraManager.cameraForCoordinatesCameraOptions(
-          coordinates, camera, box);
+  Future<CameraOptions> cameraForCoordinatesCameraOptions(List<Point> coordinates, CameraOptions camera, ScreenBox box) =>
+      _cameraManager.cameraForCoordinatesCameraOptions(coordinates, camera, box);
 
   /// Convenience method that returns the `camera options` object for given parameters.
-  Future<CameraOptions> cameraForGeometry(Map<String?, Object?> geometry,
-          MbxEdgeInsets padding, double? bearing, double? pitch) =>
+  Future<CameraOptions> cameraForGeometry(Map<String?, Object?> geometry, MbxEdgeInsets padding, double? bearing, double? pitch) =>
       _cameraManager.cameraForGeometry(geometry, padding, bearing, pitch);
 
   /// Returns the `coordinate bounds` for a given camera.
-  Future<CoordinateBounds> coordinateBoundsForCamera(CameraOptions camera) =>
-      _cameraManager.coordinateBoundsForCamera(camera);
+  Future<CoordinateBounds> coordinateBoundsForCamera(CameraOptions camera) => _cameraManager.coordinateBoundsForCamera(camera);
 
   /// Returns the `coordinate bounds` for a given camera.
-  Future<CoordinateBounds> coordinateBoundsForCameraUnwrapped(
-          CameraOptions camera) =>
-      _cameraManager.coordinateBoundsForCameraUnwrapped(camera);
+  Future<CoordinateBounds> coordinateBoundsForCameraUnwrapped(CameraOptions camera) => _cameraManager.coordinateBoundsForCameraUnwrapped(camera);
 
   /// Returns the `coordinate bounds` and the `zoom` for a given `camera`.
   ///
   /// Note that if the given `camera` shows the antimeridian, the returned wrapped `coordinate bounds`
   /// might not represent the minimum bounding box.
-  Future<CoordinateBoundsZoom> coordinateBoundsZoomForCamera(
-          CameraOptions camera) =>
-      _cameraManager.coordinateBoundsZoomForCamera(camera);
+  Future<CoordinateBoundsZoom> coordinateBoundsZoomForCamera(CameraOptions camera) => _cameraManager.coordinateBoundsZoomForCamera(camera);
 
   /// Returns the unwrapped `coordinate bounds` and `zoom` for a given `camera`.
   ///
   /// This method is useful if the `camera` shows the antimeridian.
-  Future<CoordinateBoundsZoom> coordinateBoundsZoomForCameraUnwrapped(
-          CameraOptions camera) =>
-      _cameraManager.coordinateBoundsZoomForCameraUnwrapped(camera);
+  Future<CoordinateBoundsZoom> coordinateBoundsZoomForCameraUnwrapped(CameraOptions camera) => _cameraManager.coordinateBoundsZoomForCameraUnwrapped(camera);
 
   /// Calculates a `screen coordinate` that corresponds to a geographical coordinate
   /// (i.e., longitude-latitude pair).
   ///
   /// The `screen coordinate` is in `logical pixels` relative to the top left corner
   /// of the map (not of the whole screen).
-  Future<ScreenCoordinate> pixelForCoordinate(Point coordinate) =>
-      _cameraManager.pixelForCoordinate(coordinate);
+  Future<ScreenCoordinate> pixelForCoordinate(Point coordinate) => _cameraManager.pixelForCoordinate(coordinate);
 
   /// Calculates a geographical `coordinate` (i.e., longitude-latitude pair) that corresponds
   /// to a `screen coordinate`.
   ///
   /// The screen coordinate is in `logical pixels`relative to the top left corner
   /// of the map (not of the whole screen).
-  Future<Point> coordinateForPixel(ScreenCoordinate pixel) =>
-      _cameraManager.coordinateForPixel(pixel);
+  Future<Point> coordinateForPixel(ScreenCoordinate pixel) => _cameraManager.coordinateForPixel(pixel);
 
   /// Calculates `screen coordinates` that correspond to geographical `coordinates`
   /// (i.e., longitude-latitude pairs).
   ///
   /// The `screen coordinates` are in `logical pixels` relative to the top left corner
   /// of the map (not of the whole screen).
-  Future<List<ScreenCoordinate?>> pixelsForCoordinates(
-          List<Point> coordinates) =>
-      _cameraManager.pixelsForCoordinates(coordinates);
+  Future<List<ScreenCoordinate?>> pixelsForCoordinates(List<Point> coordinates) => _cameraManager.pixelsForCoordinates(coordinates);
 
   /// Calculates geographical `coordinates` (i.e., longitude-latitude pairs) that correspond
   /// to `screen coordinates`.
   ///
   /// The screen coordinates are in `logical pixels` relative to the top left corner
   /// of the map (not of the whole screen).
-  Future<List<Point?>> coordinatesForPixels(List<ScreenCoordinate?> pixels) =>
-      _cameraManager.coordinatesForPixels(pixels);
+  Future<List<Point?>> coordinatesForPixels(List<ScreenCoordinate?> pixels) => _cameraManager.coordinatesForPixels(pixels);
 
   /// Changes the map view by any combination of center, zoom, bearing, and pitch, without an animated transition.
   /// The map will retain its current values for any details not passed via the camera options argument.
   /// It is not guaranteed that the provided `camera options` will be set, the map may apply constraints resulting in a
   /// different `camera state`.
-  Future<void> setCamera(CameraOptions cameraOptions) =>
-      _cameraManager.setCamera(cameraOptions);
+  Future<void> setCamera(CameraOptions cameraOptions) => _cameraManager.setCamera(cameraOptions);
 
   /// Returns the current `camera state`.
   Future<CameraState> getCameraState() => _cameraManager.getCameraState();
@@ -355,8 +297,7 @@ class MapboxMap extends ChangeNotifier {
   /// When camera bounds options are set, the camera center is constrained by these bounds, as well as the minimum
   /// zoom level of the camera, to prevent out of bounds areas to be visible.
   /// Note that tilting or rotating the map, or setting stricter minimum and maximum zoom within `options` may still cause some out of bounds areas to become visible.
-  Future<void> setBounds(CameraBoundsOptions options) =>
-      _cameraManager.setBounds(options);
+  Future<void> setBounds(CameraBoundsOptions options) => _cameraManager.setBounds(options);
 
   /// Returns the `camera bounds` of the map.
   Future<CameraBounds> getBounds() => _cameraManager.getBounds();
@@ -371,46 +312,38 @@ class MapboxMap extends ChangeNotifier {
   /// Tells the map rendering engine that there is currently a gesture in progress. This
   /// affects how the map renders labels, as it will use different texture filters if a gesture
   /// is ongoing.
-  Future<void> setGestureInProgress(bool inProgress) =>
-      _mapInterface.setGestureInProgress(inProgress);
+  Future<void> setGestureInProgress(bool inProgress) => _mapInterface.setGestureInProgress(inProgress);
 
   /// Returns `true` if a gesture is currently in progress.
   Future<bool> isGestureInProgress() => _mapInterface.isGestureInProgress();
 
   @visibleForTesting
-  Future<void> dispatch(String gesture, ScreenCoordinate screenCoordinate) =>
-      _mapInterface.dispatch(gesture, screenCoordinate);
+  Future<void> dispatch(String gesture, ScreenCoordinate screenCoordinate) => _mapInterface.dispatch(gesture, screenCoordinate);
 
   /// Tells the map rendering engine that the animation is currently performed by the
   /// user (e.g. with a `setCamera` calls series). It adjusts the engine for the animation use case.
   /// In particular, it brings more stability to symbol placement and rendering.
-  Future<void> setUserAnimationInProgress(bool inProgress) =>
-      _mapInterface.setUserAnimationInProgress(inProgress);
+  Future<void> setUserAnimationInProgress(bool inProgress) => _mapInterface.setUserAnimationInProgress(inProgress);
 
   /// Returns `true` if user animation is currently in progress.
-  Future<bool> isUserAnimationInProgress() =>
-      _mapInterface.isUserAnimationInProgress();
+  Future<bool> isUserAnimationInProgress() => _mapInterface.isUserAnimationInProgress();
 
   /// When loading a map, if prefetch zoom `delta` is set to any number greater than 0,
   /// the map will first request a tile at zoom level lower than `zoom - delta`, with requested
   /// zoom level a multiple of `delta`, in an attempt to display a full map at lower resolution as quick as possible.
-  Future<void> setPrefetchZoomDelta(int delta) =>
-      _mapInterface.setPrefetchZoomDelta(delta);
+  Future<void> setPrefetchZoomDelta(int delta) => _mapInterface.setPrefetchZoomDelta(delta);
 
   /// Returns the map's prefetch zoom delta.
   Future<int> getPrefetchZoomDelta() => _mapInterface.getPrefetchZoomDelta();
 
   /// Sets the north `orientation mode`.
-  Future<void> setNorthOrientation(NorthOrientation orientation) =>
-      _mapInterface.setNorthOrientation(orientation);
+  Future<void> setNorthOrientation(NorthOrientation orientation) => _mapInterface.setNorthOrientation(orientation);
 
   /// Sets the map `constrain mode`.
-  Future<void> setConstrainMode(ConstrainMode mode) =>
-      _mapInterface.setConstrainMode(mode);
+  Future<void> setConstrainMode(ConstrainMode mode) => _mapInterface.setConstrainMode(mode);
 
   /// Sets the `viewport mode`.
-  Future<void> setViewportMode(ViewportMode mode) =>
-      _mapInterface.setViewportMode(mode);
+  Future<void> setViewportMode(ViewportMode mode) => _mapInterface.setViewportMode(mode);
 
   /// Returns the `map options`.
   Future<MapOptions> getMapOptions() => _mapInterface.getMapOptions();
@@ -425,8 +358,7 @@ class MapboxMap extends ChangeNotifier {
   ///
   /// This property allows setting a custom glyph URL at runtime, making it easier to
   /// apply custom fonts to the map without modifying the base style.
-  Future<void> setStyleGlyphURL(String glyphURL) =>
-      _mapInterface.setStyleGlyphURL(glyphURL);
+  Future<void> setStyleGlyphURL(String glyphURL) => _mapInterface.setStyleGlyphURL(glyphURL);
 
   /// Debug options for the widget associated with the map.
   Future<List<MapWidgetDebugOptions>> getDebugOptions() async {
@@ -437,8 +369,7 @@ class MapboxMap extends ChangeNotifier {
 
   /// Set debug options for the widget associated with the map.
   Future<void> setDebugOptions(List<MapWidgetDebugOptions> debugOptions) {
-    return _mapInterface
-        .setDebugOptions(debugOptions.map((e) => e._option).toList());
+    return _mapInterface.setDebugOptions(debugOptions.map((e) => e._option).toList());
   }
 
   /// Returns the `map debug options`.
@@ -447,57 +378,39 @@ class MapboxMap extends ChangeNotifier {
 
   /// Sets the `map debug options` and enables debug mode based on the passed value.
   @Deprecated("Use 'setDebugOptions()' instead")
-  Future<void> setDebug(List<MapDebugOptions?> debugOptions, bool value) =>
-      _mapInterface.setDebug(debugOptions, value);
+  Future<void> setDebug(List<MapDebugOptions?> debugOptions, bool value) => _mapInterface.setDebug(debugOptions, value);
 
   /// Queries the map for rendered features.
-  Future<List<QueriedRenderedFeature?>> queryRenderedFeatures(
-          RenderedQueryGeometry geometry, RenderedQueryOptions options) =>
-      _mapInterface.queryRenderedFeatures(
-          _RenderedQueryGeometry(value: geometry.value, type: geometry.type),
-          options);
+  Future<List<QueriedRenderedFeature?>> queryRenderedFeatures(RenderedQueryGeometry geometry, RenderedQueryOptions options) =>
+      _mapInterface.queryRenderedFeatures(_RenderedQueryGeometry(value: geometry.value, type: geometry.type), options);
 
   /// Queries the map for rendered features with one typed featureset.
-  Future<List<FeaturesetFeature>> queryRenderedFeaturesForFeatureset(
-      {required FeaturesetDescriptor featureset,
-      RenderedQueryGeometry? geometry,
-      String? filter}) async {
-    return _mapInterface.queryRenderedFeaturesForFeatureset(
-        featureset,
-        (geometry != null)
-            ? _RenderedQueryGeometry(value: geometry.value, type: geometry.type)
-            : null,
-        filter);
+  Future<List<FeaturesetFeature>> queryRenderedFeaturesForFeatureset({required FeaturesetDescriptor featureset, RenderedQueryGeometry? geometry, String? filter}) async {
+    return _mapInterface.queryRenderedFeaturesForFeatureset(featureset, (geometry != null) ? _RenderedQueryGeometry(value: geometry.value, type: geometry.type) : null, filter);
   }
 
   /// Queries the map for source features.
-  Future<List<QueriedSourceFeature?>> querySourceFeatures(
-          String sourceId, SourceQueryOptions options) =>
-      _mapInterface.querySourceFeatures(sourceId, options);
+  Future<List<QueriedSourceFeature?>> querySourceFeatures(String sourceId, SourceQueryOptions options) => _mapInterface.querySourceFeatures(sourceId, options);
 
   /// Returns all the leaves (original points) of a cluster (given its cluster_id) from a GeoJsonSource, with pagination support: limit is the number of leaves
   /// to return (set to Infinity for all points), and offset is the amount of points to skip (for pagination).
   ///
   /// Requires configuring the source as a cluster by calling [GeoJsonSource.Builder#cluster(boolean)].
-  Future<FeatureExtensionValue> getGeoJsonClusterLeaves(String sourceIdentifier,
-          Map<String?, Object?> cluster, int? limit, int? offset) =>
-      _mapInterface.getGeoJsonClusterLeaves(
-          sourceIdentifier, cluster, limit, offset);
+  Future<FeatureExtensionValue> getGeoJsonClusterLeaves(String sourceIdentifier, Map<String?, Object?> cluster, int? limit, int? offset) =>
+      _mapInterface.getGeoJsonClusterLeaves(sourceIdentifier, cluster, limit, offset);
 
   /// Returns the children (original points or clusters) of a cluster (on the next zoom level)
   /// given its id (cluster_id value from feature properties) from a GeoJsonSource.
   ///
   /// Requires configuring the source as a cluster by calling [GeoJsonSource.Builder#cluster(boolean)].
-  Future<FeatureExtensionValue> getGeoJsonClusterChildren(
-          String sourceIdentifier, Map<String?, Object?> cluster) =>
+  Future<FeatureExtensionValue> getGeoJsonClusterChildren(String sourceIdentifier, Map<String?, Object?> cluster) =>
       _mapInterface.getGeoJsonClusterChildren(sourceIdentifier, cluster);
 
   /// Returns the zoom on which the cluster expands into several children (useful for "click to zoom" feature)
   /// given the cluster's cluster_id (cluster_id value from feature properties) from a GeoJsonSource.
   ///
   /// Requires configuring the source as a cluster by calling [GeoJsonSource.Builder#cluster(boolean)].
-  Future<FeatureExtensionValue> getGeoJsonClusterExpansionZoom(
-          String sourceIdentifier, Map<String?, Object?> cluster) =>
+  Future<FeatureExtensionValue> getGeoJsonClusterExpansionZoom(String sourceIdentifier, Map<String?, Object?> cluster) =>
       _mapInterface.getGeoJsonClusterExpansionZoom(sourceIdentifier, cluster);
 
   /// Updates the state object of a feature within a style source.
@@ -508,46 +421,32 @@ class MapboxMap extends ChangeNotifier {
   ///
   /// Note that updates to feature `state` are asynchronous, so changes made by this method might not be
   /// immediately visible using `getStateFeature`.
-  Future<void> setFeatureState(String sourceId, String? sourceLayerId,
-          String featureId, String state) =>
-      _mapInterface.setFeatureState(sourceId, sourceLayerId, featureId, state);
+  Future<void> setFeatureState(String sourceId, String? sourceLayerId, String featureId, String state) => _mapInterface.setFeatureState(sourceId, sourceLayerId, featureId, state);
 
   /// Update the state map of a feature within a featureset.
   /// Update entries in the state map of a given feature within a style source. Only entries listed in the state map
   /// will be updated. An entry in the feature state map that is not listed in `state` will retain its previous value.
-  Future<void> setFeatureStateForFeaturesetDescriptor(
-          FeaturesetDescriptor featureset,
-          FeaturesetFeatureId featureId,
-          FeatureState state) =>
-      _mapInterface.setFeatureStateForFeaturesetDescriptor(
-          featureset, featureId, state.map);
+  Future<void> setFeatureStateForFeaturesetDescriptor(FeaturesetDescriptor featureset, FeaturesetFeatureId featureId, FeatureState state) =>
+      _mapInterface.setFeatureStateForFeaturesetDescriptor(featureset, featureId, state.map);
 
   /// Update the state map of an individual feature.
   ///
   /// The feature should have a non-nil ``FeaturesetFeatureType/id``. Otherwise,
   /// the operation will be no-op and callback will receive an error.
-  Future<void> setFeatureStateForFeaturesetFeature(
-          FeaturesetFeature feature, FeatureState state) =>
-      _mapInterface.setFeatureStateForFeaturesetFeature(feature, state.map);
+  Future<void> setFeatureStateForFeaturesetFeature(FeaturesetFeature feature, FeatureState state) => _mapInterface.setFeatureStateForFeaturesetFeature(feature, state.map);
 
   /// Gets the state map of a feature within a style source.
   ///
   /// Note that updates to feature state are asynchronous, so changes made by other methods might not be
   /// immediately visible.
-  Future<String> getFeatureState(
-          String sourceId, String? sourceLayerId, String featureId) =>
-      _mapInterface.getFeatureState(sourceId, sourceLayerId, featureId);
+  Future<String> getFeatureState(String sourceId, String? sourceLayerId, String featureId) => _mapInterface.getFeatureState(sourceId, sourceLayerId, featureId);
 
   /// Get the state map of a feature within a style source.
-  Future<Map<String, Object?>> getFeatureStateForFeaturesetDescriptor(
-          FeaturesetDescriptor featureset, FeaturesetFeatureId featureId) =>
-      _mapInterface.getFeatureStateForFeaturesetDescriptor(
-          featureset, featureId);
+  Future<Map<String, Object?>> getFeatureStateForFeaturesetDescriptor(FeaturesetDescriptor featureset, FeaturesetFeatureId featureId) =>
+      _mapInterface.getFeatureStateForFeaturesetDescriptor(featureset, featureId);
 
   /// Get the state map of a feature within a style source.
-  Future<Map<String, Object?>> getFeatureStateForFeaturesetFeature(
-          FeaturesetFeature feature) =>
-      _mapInterface.getFeatureStateForFeaturesetFeature(feature);
+  Future<Map<String, Object?>> getFeatureStateForFeaturesetFeature(FeaturesetFeature feature) => _mapInterface.getFeatureStateForFeaturesetFeature(feature);
 
   /// Removes entries from a feature state object.
   ///
@@ -556,33 +455,24 @@ class MapboxMap extends ChangeNotifier {
   ///
   /// Note that updates to feature state are asynchronous, so changes made by this method might not be
   /// immediately visible using `getStateFeature`.
-  Future<void> removeFeatureState(String sourceId, String? sourceLayerId,
-          String featureId, String? stateKey) =>
-      _mapInterface.removeFeatureState(
-          sourceId, sourceLayerId, featureId, stateKey);
+  Future<void> removeFeatureState(String sourceId, String? sourceLayerId, String featureId, String? stateKey) =>
+      _mapInterface.removeFeatureState(sourceId, sourceLayerId, featureId, stateKey);
 
   /// Removes entries from a feature state object of a feature in the specified featureset.
   /// Remove a specified property or all property from a feature's state object, depending on the value of `stateKey`.
-  Future<void> removeFeatureStateForFeaturesetDescriptor(
-          {required FeaturesetDescriptor featureset,
-          required FeaturesetFeatureId featureId,
-          String? stateKey}) =>
-      _mapInterface.removeFeatureStateForFeaturesetDescriptor(
-          featureset, featureId, stateKey);
+  Future<void> removeFeatureStateForFeaturesetDescriptor({required FeaturesetDescriptor featureset, required FeaturesetFeatureId featureId, String? stateKey}) =>
+      _mapInterface.removeFeatureStateForFeaturesetDescriptor(featureset, featureId, stateKey);
 
   /// Removes entries from a specified Feature.
   /// Remove a specified property or all property from a feature's state object, depending on the value of `stateKey`.
-  Future<void> removeFeatureStateForFeaturesetFeature(
-          {required FeaturesetFeature feature, String? stateKey}) =>
+  Future<void> removeFeatureStateForFeaturesetFeature({required FeaturesetFeature feature, String? stateKey}) =>
       _mapInterface.removeFeatureStateForFeaturesetFeature(feature, stateKey);
 
   /// Reset all the feature states within a featureset.
   ///
   /// Note that updates to feature state are asynchronous, so changes made by this method might not be
   /// immediately visible using ``MapboxMap/getFeatureState(_:callback:)``.
-  Future<void> resetFeatureStatesForFeatureset(
-          FeaturesetDescriptor featureset) =>
-      _mapInterface.resetFeatureStatesForFeatureset(featureset);
+  Future<void> resetFeatureStatesForFeatureset(FeaturesetDescriptor featureset) => _mapInterface.resetFeatureStatesForFeatureset(featureset);
 
   /// References for all interactions added to the map.
   final _InteractionsMap _interactionsMap = _InteractionsMap(interactions: {});
@@ -590,17 +480,13 @@ class MapboxMap extends ChangeNotifier {
   /// Add an interaction to the map
   /// An identifier can be provided, which you can use to remove
   /// the interaction with `.removeInteraction(interactionID)`
-  void addInteraction<T extends TypedFeaturesetFeature<FeaturesetDescriptor>>(
-      TypedInteraction<T> interaction,
-      {String? interactionID}) {
+  void addInteraction<T extends TypedFeaturesetFeature<FeaturesetDescriptor>>(TypedInteraction<T> interaction, {String? interactionID}) {
     final id = interactionID ?? UniqueKey().toString();
     _interactionsMap.interactions[id] = _InteractionListener<T>(
       onInteractionListener: interaction.action,
       interactionID: id,
     );
-    _InteractionsListener.setUp(_interactionsMap,
-        binaryMessenger: _mapboxMapsPlatform.binaryMessenger,
-        messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
+    _InteractionsListener.setUp(_interactionsMap, binaryMessenger: _mapboxMapsPlatform.binaryMessenger, messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
     _mapboxMapsPlatform.addInteractionsListeners(interaction, id);
   }
 
@@ -616,8 +502,7 @@ class MapboxMap extends ChangeNotifier {
 
   /// Gets elevation for the given coordinate.
   /// Note: Elevation is only available for the visible region on the screen and with terrain enabled.
-  Future<double?> getElevation(Point coordinate) =>
-      _mapInterface.getElevation(coordinate);
+  Future<double?> getElevation(Point coordinate) => _mapInterface.getElevation(coordinate);
 
   /// Will load a new map style asynchronous from the specified URI.
   ///
@@ -641,13 +526,11 @@ class MapboxMap extends ChangeNotifier {
   /// loads the style from a file path. This is used to load a style from disk.
   ///
   /// Will load an empty json `{}` if the styleUri is empty.
-  Future<void> loadStyleURI(String styleURI) =>
-      _mapInterface.loadStyleURI(styleURI);
+  Future<void> loadStyleURI(String styleURI) => _mapInterface.loadStyleURI(styleURI);
 
   /// Loads a style from a JSON string, calling a completion closure when the
   /// style is fully loaded or there has been an error during load.
-  Future<void> loadStyleJson(String styleJson) =>
-      _mapInterface.loadStyleJson(styleJson);
+  Future<void> loadStyleJson(String styleJson) => _mapInterface.loadStyleJson(styleJson);
 
   /// Clears temporary map data.
   ///
@@ -668,51 +551,34 @@ class MapboxMap extends ChangeNotifier {
   ///
   /// If null is set, the memory budget in tile units will be dynamically calculated based on
   /// the current viewport size.
-  Future<void> setTileCacheBudget(
-          TileCacheBudgetInMegabytes? tileCacheBudgetInMegabytes,
-          TileCacheBudgetInTiles? tileCacheBudgetInTiles) =>
-      _mapInterface.setTileCacheBudget(
-          tileCacheBudgetInMegabytes, tileCacheBudgetInTiles);
+  Future<void> setTileCacheBudget(TileCacheBudgetInMegabytes? tileCacheBudgetInMegabytes, TileCacheBudgetInTiles? tileCacheBudgetInTiles) =>
+      _mapInterface.setTileCacheBudget(tileCacheBudgetInMegabytes, tileCacheBudgetInTiles);
 
   /// Ease the map camera to a given camera options and animation options
-  Future<void> easeTo(CameraOptions cameraOptions,
-          MapAnimationOptions? mapAnimationOptions) =>
-      _animationManager.easeTo(cameraOptions, mapAnimationOptions);
+  Future<void> easeTo(CameraOptions cameraOptions, MapAnimationOptions? mapAnimationOptions) => _animationManager.easeTo(cameraOptions, mapAnimationOptions);
 
   /// Fly the map camera to a given camera options.
-  Future<void> flyTo(CameraOptions cameraOptions,
-          MapAnimationOptions? mapAnimationOptions) =>
-      _animationManager.flyTo(cameraOptions, mapAnimationOptions);
+  Future<void> flyTo(CameraOptions cameraOptions, MapAnimationOptions? mapAnimationOptions) => _animationManager.flyTo(cameraOptions, mapAnimationOptions);
 
   /// Pitch the map by with optional animation.
-  Future<void> pitchBy(
-          double pitch, MapAnimationOptions? mapAnimationOptions) =>
-      _animationManager.pitchBy(pitch, mapAnimationOptions);
+  Future<void> pitchBy(double pitch, MapAnimationOptions? mapAnimationOptions) => _animationManager.pitchBy(pitch, mapAnimationOptions);
 
   /// Scale the map by with optional animation.
-  Future<void> scaleBy(double amount, ScreenCoordinate? screenCoordinate,
-          MapAnimationOptions? mapAnimationOptions) =>
+  Future<void> scaleBy(double amount, ScreenCoordinate? screenCoordinate, MapAnimationOptions? mapAnimationOptions) =>
       _animationManager.scaleBy(amount, screenCoordinate, mapAnimationOptions);
 
   /// Move the map by a given screen coordinate with optional animation.
-  Future<void> moveBy(ScreenCoordinate screenCoordinate,
-          MapAnimationOptions? mapAnimationOptions) =>
-      _animationManager.moveBy(screenCoordinate, mapAnimationOptions);
+  Future<void> moveBy(ScreenCoordinate screenCoordinate, MapAnimationOptions? mapAnimationOptions) => _animationManager.moveBy(screenCoordinate, mapAnimationOptions);
 
   /// Rotate the map by with optional animation.
-  Future<void> rotateBy(ScreenCoordinate first, ScreenCoordinate second,
-          MapAnimationOptions? mapAnimationOptions) =>
+  Future<void> rotateBy(ScreenCoordinate first, ScreenCoordinate second, MapAnimationOptions? mapAnimationOptions) =>
       _animationManager.rotateBy(first, second, mapAnimationOptions);
 
   /// Cancel the ongoing camera animation if there is one.
-  Future<void> cancelCameraAnimation() =>
-      _animationManager.cancelCameraAnimation();
+  Future<void> cancelCameraAnimation() => _animationManager.cancelCameraAnimation();
 
   void _setupGestures() {
-    if (onMapTapListener != null ||
-        onMapLongTapListener != null ||
-        onMapScrollListener != null ||
-        onMapZoomListener != null) {
+    if (onMapTapListener != null || onMapLongTapListener != null || onMapScrollListener != null || onMapZoomListener != null) {
       GestureListener.setUp(
           _GestureListener(
             onMapTapListener: onMapTapListener,
@@ -761,12 +627,8 @@ class MapboxMap extends ChangeNotifier {
   /// After calling [startPerformanceStatisticsCollection], [stopPerformanceStatisticsCollection] must be called before collection can be
   /// restarted.
   @experimental
-  void startPerformanceStatisticsCollection(
-      PerformanceStatisticsOptions options,
-      PerformanceStatisticsListener listener) {
-    PerformanceStatisticsListener.setUp(listener,
-        binaryMessenger: _mapboxMapsPlatform.binaryMessenger,
-        messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
+  void startPerformanceStatisticsCollection(PerformanceStatisticsOptions options, PerformanceStatisticsListener listener) {
+    PerformanceStatisticsListener.setUp(listener, binaryMessenger: _mapboxMapsPlatform.binaryMessenger, messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
 
     _performanceStatistics.startPerformanceStatisticsCollection(options);
   }
@@ -780,9 +642,7 @@ class MapboxMap extends ChangeNotifier {
   void stopPerformanceStatisticsCollection() {
     _performanceStatistics.stopPerformanceStatisticsCollection();
 
-    PerformanceStatisticsListener.setUp(null,
-        binaryMessenger: _mapboxMapsPlatform.binaryMessenger,
-        messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
+    PerformanceStatisticsListener.setUp(null, binaryMessenger: _mapboxMapsPlatform.binaryMessenger, messageChannelSuffix: _mapboxMapsPlatform.channelSuffix.toString());
   }
 
   void setOnMapTapListener(OnMapTapListener? onMapTapListener) {
@@ -817,8 +677,7 @@ class MapboxMap extends ChangeNotifier {
   ///
   /// Note: This method has no effect on iOS platform.
   @experimental
-  Future<void> setSnapshotLegacyMode(bool enable) =>
-      _mapInterface.setSnapshotLegacyMode(enable);
+  Future<void> setSnapshotLegacyMode(bool enable) => _mapInterface.setSnapshotLegacyMode(enable);
 
   /// Set custom headers for all Mapbox HTTP requests
   ///
@@ -837,10 +696,7 @@ class MapboxMap extends ChangeNotifier {
   /// Throws a [PlatformException] if the native implementation is not available
   /// or if the operation fails
   Future<void> setCustomHeaders(Map<String, String> headers) =>
-      MapboxHttpService(
-              binaryMessenger: _mapboxMapsPlatform.binaryMessenger,
-              channelSuffix: _mapboxMapsPlatform.channelSuffix)
-          .setCustomHeaders(headers);
+      MapboxHttpService(binaryMessenger: _mapboxMapsPlatform.binaryMessenger, channelSuffix: _mapboxMapsPlatform.channelSuffix).setCustomHeaders(headers);
 }
 
 class _GestureListener extends GestureListener {
@@ -878,8 +734,7 @@ class _GestureListener extends GestureListener {
 }
 
 /// Listen for a single interaction added to the map, identified by its id
-class _InteractionListener<T extends FeaturesetFeature>
-    extends _InteractionsListener {
+class _InteractionListener<T extends FeaturesetFeature> extends _InteractionsListener {
   _InteractionListener({
     required this.interactionID,
     required this.onInteractionListener,
@@ -890,27 +745,19 @@ class _InteractionListener<T extends FeaturesetFeature>
   final OnInteraction<T> onInteractionListener;
 
   @override
-  void onInteraction(FeaturesetFeature? feature,
-      MapContentGestureContext context, String interactionID) {
+  void onInteraction(FeaturesetFeature? feature, MapContentGestureContext context, String interactionID) {
     final featuresetID = feature?.featureset.featuresetId;
     T? typedFeature;
 
     if (feature != null) {
       if (featuresetID == "buildings") {
-        typedFeature =
-            TypedFeaturesetFeature<StandardBuildings>.fromFeaturesetFeature(
-                feature) as T;
+        typedFeature = TypedFeaturesetFeature<StandardBuildings>.fromFeaturesetFeature(feature) as T;
       } else if (featuresetID == "poi") {
-        typedFeature =
-            TypedFeaturesetFeature<StandardPOIs>.fromFeaturesetFeature(feature)
-                as T;
+        typedFeature = TypedFeaturesetFeature<StandardPOIs>.fromFeaturesetFeature(feature) as T;
       } else if (featuresetID == "place-labels") {
-        typedFeature =
-            TypedFeaturesetFeature<StandardPlaceLabels>.fromFeaturesetFeature(
-                feature) as T;
+        typedFeature = TypedFeaturesetFeature<StandardPlaceLabels>.fromFeaturesetFeature(feature) as T;
       } else {
-        typedFeature =
-            TypedFeaturesetFeature.fromFeaturesetFeature(feature) as T;
+        typedFeature = TypedFeaturesetFeature.fromFeaturesetFeature(feature) as T;
       }
       onInteractionListener.call(typedFeature, context);
     } else {
@@ -920,8 +767,7 @@ class _InteractionListener<T extends FeaturesetFeature>
 }
 
 /// Listen to all interactions on the map, determine which interaction to call
-class _InteractionsMap<T extends FeaturesetFeature>
-    extends _InteractionsListener {
+class _InteractionsMap<T extends FeaturesetFeature> extends _InteractionsListener {
   _InteractionsMap({
     required this.interactions,
   });
@@ -929,8 +775,7 @@ class _InteractionsMap<T extends FeaturesetFeature>
   Map<String, _InteractionListener> interactions;
 
   @override
-  void onInteraction(FeaturesetFeature? feature,
-      MapContentGestureContext context, String interactionID) {
+  void onInteraction(FeaturesetFeature? feature, MapContentGestureContext context, String interactionID) {
     interactions[interactionID]?.onInteraction(feature, context, interactionID);
   }
 }

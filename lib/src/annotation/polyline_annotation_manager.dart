@@ -146,16 +146,6 @@ class PolylineAnnotationManager extends BaseAnnotationManager {
   Future<double?> getLineCutoutOpacity() =>
       _annotationMessenger.getLineCutoutOpacity(id);
 
-  /// The width of the line cutout in meters. If set to 0, the cutout is disabled. The cutout does not apply to location-indicator type layers. Default value: 0. Value range: [0, 50]
-  @experimental
-  Future<void> setLineCutoutWidth(double lineCutoutWidth) =>
-      _annotationMessenger.setLineCutoutWidth(id, lineCutoutWidth);
-
-  /// The width of the line cutout in meters. If set to 0, the cutout is disabled. The cutout does not apply to location-indicator type layers. Default value: 0. Value range: [0, 50]
-  @experimental
-  Future<double?> getLineCutoutWidth() =>
-      _annotationMessenger.getLineCutoutWidth(id);
-
   /// Selects the base of line-elevation. Some modes might require precomputed elevation data in the tileset. Default value: "none".
   @experimental
   Future<void> setLineElevationReference(

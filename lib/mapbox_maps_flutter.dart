@@ -4,11 +4,11 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer' as developer;
 
+import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 import 'package:turf/turf.dart' as turf;
 
@@ -89,3 +89,7 @@ part 'src/package_info.dart';
 part 'src/http/http_service.dart';
 part 'src/cancelable.dart';
 part 'src/deprecated.dart';
+part 'src/style/navigation_styles.dart';
+part 'src/pigeons/navigation_interface.g.dart';
+part 'src/navigation/navigation_controller.dart';
+part 'src/navigation/widgets/lane_guidance_view.dart';

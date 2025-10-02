@@ -2,14 +2,14 @@ group 'com.mapbox.maps.mapbox_maps'
 version '1.0.0'
 
 buildscript {
-    ext.kotlin_version = '1.8.22'
+    ext.kotlin_version = '2.1.0'
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.0'
+        classpath 'com.android.tools.build:gradle:8.13.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -20,9 +20,23 @@ rootProject.allprojects {
         mavenCentral()
         maven {
             url 'https://api.mapbox.com/downloads/v2/releases/maven'
+            authentication {
+                basic(BasicAuthentication)
+            }
+            credentials {
+                username = 'mapbox'
+                password = project.hasProperty('MAPBOX_DOWNLOADS_TOKEN') ? project.property('MAPBOX_DOWNLOADS_TOKEN') : ''
+            }
         }
         maven {
             url 'https://api.mapbox.com/downloads/v2/snapshots/maven'
+            authentication {
+                basic(BasicAuthentication)
+            }
+            credentials {
+                username = 'mapbox'
+                password = project.hasProperty('MAPBOX_DOWNLOADS_TOKEN') ? project.property('MAPBOX_DOWNLOADS_TOKEN') : ''
+            }
         }
     }
 }
@@ -31,7 +45,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdk 33
+    compileSdk 36
 
     namespace 'com.mapbox.maps.mapbox_maps'
     sourceSets {
@@ -42,12 +56,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_11
     }
 }
 
@@ -59,8 +73,13 @@ if (file("$rootDir/gradle/ktlint.gradle").exists() && file("$rootDir/gradle/lint
 }
 
 dependencies {
-    implementation "com.mapbox.maps:android-ndk27:11.16.0-beta.1"
-
+    implementation "com.mapbox.maps:android-ndk27:11.18.0"
+    implementation("com.mapbox.navigationcore:android-ndk27:3.18.0") {
+        exclude group: "com.mapbox.common", module: "common"
+        exclude group: "com.mapbox.maps", module: "android"
+        exclude group: "com.mapbox.maps", module: "base"
+        exclude group: "com.mapbox.maps", module: "android-core"
+    }
     implementation "androidx.annotation:annotation:1.5.0"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.2"
 }
