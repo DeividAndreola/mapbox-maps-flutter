@@ -16,6 +16,7 @@ import com.mapbox.maps.MapView
 import com.mapbox.maps.MapboxMap
 import com.mapbox.maps.mapbox_maps.annotation.AnnotationController
 import com.mapbox.maps.mapbox_maps.http.CustomHttpServiceInterceptor
+import com.mapbox.maps.mapbox_maps.navigation.NavigationInterface
 import com.mapbox.maps.mapbox_maps.pigeons.AttributionSettingsInterface
 import com.mapbox.maps.mapbox_maps.pigeons.CompassSettingsInterface
 import com.mapbox.maps.mapbox_maps.pigeons.GesturesSettingsInterface
@@ -58,7 +59,6 @@ class MapboxMapController(
   private val methodChannel: MethodChannel
   private val messenger: BinaryMessenger
   private val channelSuffix: String
-
   private val styleController: StyleController
   private val cameraController: CameraController
   private val projectionController: MapProjectionController
@@ -179,6 +179,7 @@ class MapboxMapController(
     CompassSettingsInterface.setUp(messenger, compassController, this.channelSuffix)
     _ViewportMessenger.setUp(messenger, viewportController, this.channelSuffix)
     _PerformanceStatisticsApi.setUp(messenger, performanceStatisticsController, this.channelSuffix)
+    NavigationInterface.setUp(messenger, navigationController, this.channelSuffix)
 
     methodChannel = MethodChannel(messenger, "plugins.flutter.io.$channelSuffix")
     methodChannel.setMethodCallHandler(this)

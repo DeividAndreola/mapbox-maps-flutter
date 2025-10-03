@@ -89,3 +89,5 @@ part 'src/package_info.dart';
 part 'src/http/http_service.dart';
 part 'src/cancelable.dart';
 part 'src/deprecated.dart';
+part 'src/pigeons/navigation.dart';
+part 'src/style/navigation_styles.dart';

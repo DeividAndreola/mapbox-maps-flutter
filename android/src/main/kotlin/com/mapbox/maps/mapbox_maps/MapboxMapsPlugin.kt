@@ -45,11 +45,6 @@ class MapboxMapsPlugin : FlutterPlugin, ActivityAware {
       flutterPluginBinding.binaryMessenger,
       flutterPluginBinding.flutterAssets
     )
-
-    MapboxNavigationApp.setup(
-      NavigationOptions.Builder(flutterPluginBinding.applicationContext)
-        .build()
-    )
   }
 
   private fun setupStaticChannels(
