@@ -11,6 +11,8 @@ import com.mapbox.maps.mapbox_maps.pigeons._OfflineSwitch
 import com.mapbox.maps.mapbox_maps.pigeons._SnapshotterInstanceManager
 import com.mapbox.maps.mapbox_maps.pigeons._TileStoreInstanceManager
 import com.mapbox.maps.mapbox_maps.snapshot.SnapshotterInstanceManager
+import com.mapbox.navigation.base.options.NavigationOptions
+import com.mapbox.navigation.core.lifecycle.MapboxNavigationApp
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterAssets
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -37,10 +39,24 @@ class MapboxMapsPlugin : FlutterPlugin, ActivityAware {
           }
         )
       )
-    setupStaticChannels(flutterPluginBinding.applicationContext, flutterPluginBinding.binaryMessenger, flutterPluginBinding.flutterAssets)
+
+    setupStaticChannels(
+      flutterPluginBinding.applicationContext,
+      flutterPluginBinding.binaryMessenger,
+      flutterPluginBinding.flutterAssets
+    )
+
+    MapboxNavigationApp.setup(
+      NavigationOptions.Builder(flutterPluginBinding.applicationContext)
+        .build()
+    )
   }
 
-  private fun setupStaticChannels(context: Context, binaryMessenger: BinaryMessenger, flutterAssets: FlutterAssets) {
+  private fun setupStaticChannels(
+    context: Context,
+    binaryMessenger: BinaryMessenger,
+    flutterAssets: FlutterAssets
+  ) {
     val optionsController = MapboxOptionsController(flutterAssets)
     val snapshotterInstanceManager = SnapshotterInstanceManager(context, binaryMessenger)
     val offlineMapInstanceManager = OfflineMapInstanceManager(context, binaryMessenger)

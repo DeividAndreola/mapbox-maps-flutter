@@ -30,7 +30,9 @@ import com.mapbox.maps.mapbox_maps.pigeons._MapInterface
 import com.mapbox.maps.mapbox_maps.pigeons._PerformanceStatisticsApi
 import com.mapbox.maps.mapbox_maps.pigeons._ViewportMessenger
 import com.mapbox.maps.plugin.animation.camera
+import com.mapbox.maps.plugin.locationcomponent.location
 import com.mapbox.maps.plugin.viewport.viewport
+import com.mapbox.navigation.ui.maps.location.NavigationLocationProvider
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodCall
@@ -72,6 +74,8 @@ class MapboxMapController(
   private val compassController: CompassController
   private val viewportController: ViewportController
   private val performanceStatisticsController: PerformanceStatisticsController
+
+  private var navigationController: NavigationController? = null
 
   private val eventHandler: MapboxEventHandler
 
@@ -138,8 +142,10 @@ class MapboxMapController(
 
     val mapView = MapView(context, mapInitOptions)
     val mapboxMap = mapView.mapboxMap
+
     this.mapView = mapView
     this.mapboxMap = mapboxMap
+
     eventHandler = MapboxEventHandler(mapboxMap.styleManager, messenger, eventTypes, this.channelSuffix)
     styleController = StyleController(context, mapboxMap)
     cameraController = CameraController(mapboxMap, context)
@@ -157,6 +163,7 @@ class MapboxMapController(
     viewportController = ViewportController(mapView.viewport, mapView.camera, context, mapboxMap)
     performanceStatisticsController = PerformanceStatisticsController(mapboxMap, this.messenger, this.channelSuffix)
     changeUserAgent(pluginVersion)
+    navigationController = NavigationController(context, mapView, lifecycleProvider.getLifecycle()!!)
 
     StyleManager.setUp(messenger, styleController, this.channelSuffix)
     _CameraManager.setUp(messenger, cameraController, this.channelSuffix)
@@ -195,6 +202,10 @@ class MapboxMapController(
 
   override fun onFlutterViewDetached() {
     super.onFlutterViewDetached()
+
+    navigationController?.dispose()
+    navigationController = null
+
     lifecycleHelper?.dispose()
     lifecycleHelper = null
     mapView?.setViewTreeLifecycleOwner(null)
@@ -204,6 +215,10 @@ class MapboxMapController(
     if (mapView == null) {
       return
     }
+
+    navigationController?.dispose()
+    navigationController = null
+
     lifecycleHelper?.dispose()
     lifecycleHelper = null
     mapView?.setViewTreeLifecycleOwner(null)
